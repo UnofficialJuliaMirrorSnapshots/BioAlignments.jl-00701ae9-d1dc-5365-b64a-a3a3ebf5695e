@@ -1,0 +1,31 @@
+## Documentation: http://docs.travis-ci.com/user/languages/julia/
+language: julia
+os:
+  - linux
+  - osx
+julia:
+  - 0.7
+  - 1.0
+  - 1.1
+  - nightly
+notifications:
+  email: false
+
+script:
+    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+    - julia ci_prep.jl
+    - julia -e 'using Pkg; Pkg.build(); Pkg.test("BioAlignments", coverage = true)'
+
+after_success:
+   - julia --project=coverage/ -e 'using Pkg; Pkg.instantiate()'
+   - julia --project=coverage/ coverage/coverage.jl
+
+jobs:
+    include:
+        - stage: "Documentation"
+          julia: 1.1
+          os: linux
+          script:
+            - julia ci_prep.jl
+            - julia --project=docs/ docs/make.jl
+          after_success: skip
