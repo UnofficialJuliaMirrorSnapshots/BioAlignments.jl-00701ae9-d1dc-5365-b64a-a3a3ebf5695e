@@ -1,31 +1,38 @@
 ## Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
+
 os:
   - linux
   - osx
+
 julia:
-  - 0.7
-  - 1.0
   - 1.1
+  - 1.2
   - nightly
+
+matrix:
+  allow_failures:
+      - julia: nightly
+
 notifications:
   email: false
 
-script:
-    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-    - julia ci_prep.jl
-    - julia -e 'using Pkg; Pkg.build(); Pkg.test("BioAlignments", coverage = true)'
-
-after_success:
-   - julia --project=coverage/ -e 'using Pkg; Pkg.instantiate()'
-   - julia --project=coverage/ coverage/coverage.jl
+# Note: the before_script are included in the job stages.
+before_script:
+  - julia -e 'using Pkg.Registry; Registry.add(Registry.RegistrySpec(url = "https://github.com/JuliaRegistries/General.git"))'
+  - julia -e 'using Pkg.Registry; Registry.add(Registry.RegistrySpec(url = "https://github.com/BioJulia/BioJuliaRegistry.git"))'
 
 jobs:
-    include:
-        - stage: "Documentation"
-          julia: 1.1
-          os: linux
-          script:
-            - julia ci_prep.jl
-            - julia --project=docs/ docs/make.jl
-          after_success: skip
+  include:
+    - stage: "Coverage"
+      julia: 1.2
+      os: linux
+      script:
+         - julia --project=coverage/ coverage/coverage.jl
+      after_success: skip
+    - stage: "Documentation"
+      julia: 1.2
+      os: linux
+      script:
+        - julia --project=docs/ docs/make.jl
+      after_success: skip
