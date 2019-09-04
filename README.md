@@ -1,10 +1,10 @@
 # <img src="./sticker.svg" width="30%" align="right" /> BioAlignments
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Latest release](https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg)](https://github.com/BioJulia/BioAlignments.jl/releases/latest)
 [![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE)
 [![Stable documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioAlignments.jl/stable)
 [![Latest documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://biojulia.github.io/BioAlignments.jl/dev)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Gitter](https://badges.gitter.im/BioJulia/BioAlignments.jl.svg)](https://gitter.im/BioJulia/BioAlignments.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
@@ -18,7 +18,7 @@ BioAlignments is made available to install through BioJulia's package registry.
 
 Julia by default only watches the "General" package registry, so before you start, you should add the BioJulia package registry.
 
-Start a julia terminal, hit the ] key to enter pkg mode (you should see the prompt change from julia> to pkg> ), then enter the following command:
+Start a julia terminal, hit the `]` key to enter pkg mode (you should see the prompt change from `julia>` to `pkg>` ), then enter the following command:
 
 ```julia
 registry add https://github.com/BioJulia/BioJuliaRegistry.git

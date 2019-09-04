@@ -1,4 +1,7 @@
-using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
+using Pkg
+
+Pkg.develop(PackageSpec(path=pwd()))
+Pkg.instantiate()
 
 using Documenter, BioAlignments
 
@@ -19,7 +22,7 @@ makedocs(
 
 deploydocs(
     repo = "github.com/BioJulia/BioAlignments.jl.git",
-    devbranch = "develop"
+    devbranch = "develop",
     deps = nothing,
     make = nothing
 )

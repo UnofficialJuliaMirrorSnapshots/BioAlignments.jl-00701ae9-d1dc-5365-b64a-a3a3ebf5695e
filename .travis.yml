@@ -22,17 +22,14 @@ before_script:
   - julia -e 'using Pkg.Registry; Registry.add(Registry.RegistrySpec(url = "https://github.com/JuliaRegistries/General.git"))'
   - julia -e 'using Pkg.Registry; Registry.add(Registry.RegistrySpec(url = "https://github.com/BioJulia/BioJuliaRegistry.git"))'
 
+after_success:
+   - julia --project=coverage/ coverage/coverage.jl
+
 jobs:
-  include:
-    - stage: "Coverage"
-      julia: 1.2
-      os: linux
-      script:
-         - julia --project=coverage/ coverage/coverage.jl
-      after_success: skip
-    - stage: "Documentation"
-      julia: 1.2
-      os: linux
-      script:
-        - julia --project=docs/ docs/make.jl
-      after_success: skip
+    include:
+        - stage: "Documentation"
+          julia: 1.2
+          os: linux
+          script:
+            - julia --project=docs/ docs/make.jl
+          after_success: skip
